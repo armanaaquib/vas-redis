@@ -1,9 +1,9 @@
 const net = require('net');
-const redisCli = require('./src/RedisClient');
+const redisClient = require('./src/RedisClient');
 
 const createClient = function () {
   const socket = net.connect({ host: '127.0.0.1', port: 6379 });
-  const client = new redisCli(socket);
+  const client = new redisClient(socket);
   return client;
 };
 
