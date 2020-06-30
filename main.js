@@ -1,4 +1,4 @@
-const redis = require('./client');
+const redis = require('./vas-redis');
 
 const client = redis.createClient();
 
