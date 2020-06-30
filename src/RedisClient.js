@@ -1,49 +1,9 @@
-const breakThis = function (string) {
-  const splitted = string.split('\r\n');
-  const doThis = function (array, i, responses) {
-    const identifier = array[i][0];
-    if (identifier == '+') {
-      responses.push({ out: array[i].slice(1) });
-      return i + 1;
-    } else if (identifier == ':') {
-      responses.push({ out: +array[i].slice(1) });
-      return i + 1;
-    } else if (identifier == '-') {
-      responses.push({ err: array[i].slice(1) });
-      return i + 1;
-    } else if (identifier == '$') {
-      if (+array[i].slice(1) == -1) {
-        responses.push({ out: null });
-        return i + 1;
-      } else {
-        responses.push({ out: array[i + 1] });
-        return i + 2;
-      }
-    } else if (identifier == '*') {
-      let resp = [],
-        length = +array[i].slice(1);
-      i++;
-      while (resp.length != length) {
-        i = doThis(array, i, resp);
-      }
-      responses.push({ out: resp.map((r) => r.out) });
-      return i;
-    }
-  };
-  let i = 0,
-    responses = [];
-  while (i < splitted.length) {
-    i = doThis(splitted, i, responses);
-  }
-  return responses;
-};
+const { parse } = require('./parseResponse');
 
 class RedisClient {
   constructor(socket) {
     this.socket = socket;
-    this.socket.on('readable', () => {
-      this.gotResponse();
-    });
+    this.socket.on('readable', () => this.gotResponse());
     this.callbacks = [];
   }
 
@@ -53,10 +13,10 @@ class RedisClient {
     while ((chunk = this.socket.read())) {
       data += chunk;
     }
-    const response = breakThis(data);
-    response.forEach((res) => {
-      const { err, out } = res;
-      this.callbacks.shift()(err ? err : null, out ? out : null);
+    const responses = parse(data);
+    responses.forEach((response) => {
+      const { err, res } = response;
+      this.callbacks.shift()(err ? err : null, res ? res : null);
     });
   }
 
