@@ -6,6 +6,10 @@ client.ping((err, res) => console.log(res));
 client.set('message', 'Hello step7');
 client.get('message', (err, res) => console.log(res));
 
+client.mget(['message', 'm2'], (err, res) => {
+  console.log(res);
+});
+
 client.select(2, (err, res) => console.log(res));
 
 client.lpush('list', 1);

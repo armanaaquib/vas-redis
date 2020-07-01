@@ -65,6 +65,12 @@ class RedisClient {
     this.#sendRequest(command, { callback, type: 'string' });
   }
 
+  mget(keys, callback) {
+    const key = parseValue(keys);
+    const command = `MGET ${key}\r\n`;
+    this.#sendRequest(command, { callback, type: 'string' });
+  }
+
   lpush(key, values, callback) {
     const value = parseValue(values);
     const command = `LPUSH ${key} ${value}\r\n`;
