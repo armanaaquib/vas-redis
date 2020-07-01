@@ -86,4 +86,22 @@ const parseValue = function (values) {
   return joinedValues;
 };
 
-module.exports = { parseResponse, parseValue };
+const reshapeResponse = (res, type) => {
+  if (type === 'set') {
+    return new Set(res);
+  }
+
+  if (type === 'hash') {
+    const resObj = {};
+
+    for (let idx = 0; idx < res.length; idx += 2) {
+      resObj[res[idx]] = res[idx + 1];
+    }
+
+    return resObj;
+  }
+
+  return res;
+};
+
+module.exports = { parseResponse, parseValue, reshapeResponse };
