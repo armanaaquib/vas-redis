@@ -1,53 +1,56 @@
 const stringParser = (splitted, idx, responses) => {
-  responses.push({ err: null, res: splitted[idx].slice(1) });
-  return 1;
+  responses.push({ res: splitted[idx].slice(1) });
+  return idx + 1;
 };
 
 const errorParser = (splitted, idx, responses) => {
-  responses.push({ err: splitted[idx].slice(1), res: null });
-  return 1;
+  responses.push({ err: splitted[idx].slice(1) });
+  return idx + 1;
 };
 
 const integerParer = (splitted, idx, responses) => {
-  responses.push({ err: null, res: +splitted[idx].slice(1) });
-  return 1;
+  responses.push({ res: +splitted[idx].slice(1) });
+  return idx + 1;
 };
 
 const bulkParser = (splitted, idx, responses) => {
   const length = +splitted[idx].slice(1);
 
   if (length == -1) {
-    responses.push({ err: null, res: null });
-    return 1;
+    responses.push({ res: null });
+    return idx + 1;
   }
 
-  responses.push({ err: null, res: splitted[idx + 1] });
-  return 2;
+  responses.push({ res: splitted[idx + 1] });
+  return idx + 2;
+};
+
+
+const arrayParser = (splitted, idx, responses) => {
+  const length = +splitted[idx].slice(1);
+  if (length == -1) {
+    responses.push({ res: null });
+    return idx + 1;
+  }
+  const resp = [];
+
+  idx += 1;
+  while (resp.length !== length) {
+    const id = splitted[idx][0];
+    idx = typeParser[id](splitted, idx, resp);
+  }
+
+  responses.push({ res: resp.map((res) => res.res) });
+  return idx;
 };
 
 const typeParser = {
   '+': stringParser,
   '-': errorParser,
   ':': integerParer,
-  $: bulkParser,
+  '$': bulkParser,
+  '*': arrayParser
 };
-
-const arrayParser = (splitted, index, responses) => {
-  const length = +splitted[index].slice(1);
-  const resp = [];
-
-  let idx = index + 1;
-  while (resp.length !== length) {
-    const id = splitted[idx][0];
-    const move = typeParser[id](splitted, idx, resp);
-    idx += move;
-  }
-
-  responses.push({ res: resp.map((res) => res.res) });
-  return idx - index;
-};
-
-typeParser['*'] = arrayParser;
 
 const parseResponse = (response) => {
   const splitted = response.split('\r\n');
@@ -62,8 +65,7 @@ const parseResponse = (response) => {
       break;
     }
 
-    const move = typeParser[id](splitted, idx, responses);
-    idx += move;
+    idx = typeParser[id](splitted, idx, responses);
   }
 
   return responses;

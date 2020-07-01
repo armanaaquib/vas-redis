@@ -69,6 +69,10 @@ client.setnx('testing', 'done', (err, res) => {
   console.log(err, res);
 });
 
+client.blpop('list', 1, (err, res) => {
+  console.log(res);
+});
+
 client.close(() => {
   console.log('connection closed.');
 });
