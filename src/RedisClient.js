@@ -126,20 +126,19 @@ class RedisClient {
   }
 
   keys(pattern, callback) {
-    const command = `KEYS ${pattern} \r\n`;
+    const command = `KEYS ${pattern}\r\n`;
     this.#sendRequest(command, callback);
   }
 
   blpop(keys, timeout, callback) {
     const key = parseValue(keys);
-    console.log(key);
-    const command = `BLPOP ${key} ${timeout} \r\n`;
+    const command = `BLPOP ${key} ${timeout}\r\n`;
     this.#sendRequest(command, callback);
   }
 
   brpop(keys, timeout, callback) {
     const key = parseValue(keys);
-    const command = `BRPOP ${key} ${timeout} \r\n`;
+    const command = `BRPOP ${key} ${timeout}\r\n`;
     this.#sendRequest(command, callback);
   }
 

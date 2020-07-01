@@ -50,6 +50,16 @@ client.hgetall('myHash', (err, res) => {
 client.hexists('myHash', 'field1', (err, res) => console.log(res));
 client.hexists('myHash', 'filed10', (err, res) => console.log(res));
 
+client.keys('*', (err, res) => console.log(res));
+
+client.blpop('l', 1, (err, res) => {
+  console.log(res);
+});
+
+client.brpop('l', 1, (err, res) => {
+  console.log(res);
+});
+
 client.rpoplpush('list', 'list1', (err, res) => {
   console.log(res);
 });
@@ -76,10 +86,6 @@ client.incrBy('id', 5, (err, res) => {
 
 client.setnx('testing', 'done', (err, res) => {
   console.log(err, res);
-});
-
-client.blpop('list', 1, (err, res) => {
-  console.log(res);
 });
 
 client.close(() => {

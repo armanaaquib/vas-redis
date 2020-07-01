@@ -36,6 +36,11 @@ const arrayParser = (splitted, index, responses) => {
   const length = +splitted[index].slice(1);
   const resp = [];
 
+  if (length == -1) {
+    responses.push({ err: null, res: null });
+    return 1;
+  }
+
   let idx = index + 1;
   while (resp.length !== length) {
     const id = splitted[idx][0];
