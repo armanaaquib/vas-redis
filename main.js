@@ -47,6 +47,9 @@ client.hgetall('myHash', (err, res) => {
   console.log(res);
 });
 
+client.hexists('myHash', 'field1', (err, res) => console.log(res));
+client.hexists('myHash', 'filed10', (err, res) => console.log(res));
+
 client.rpoplpush('list', 'list1', (err, res) => {
   console.log(res);
 });

@@ -120,6 +120,11 @@ class RedisClient {
     this.#sendRequest(command, callback);
   }
 
+  hexists(key, field, callback) {
+    const command = `HEXISTS ${key} ${field}\r\n`;
+    this.#sendRequest(command, callback);
+  }
+
   keys(pattern, callback) {
     const command = `KEYS ${pattern} \r\n`;
     this.#sendRequest(command, callback);
