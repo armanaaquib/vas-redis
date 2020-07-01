@@ -30,6 +30,11 @@ client.hget('myHash', 'field1', (err, res) => {
   console.log(res);
 });
 
+client.hmset('myHash', ['field2', 'world', 'field3', '!']);
+client.hmget('myHash', ['field1', 'field2', 'field3', 'noField'], (err, res) =>
+  console.log(res)
+);
+
 client.close(() => {
   console.log('connection closed.');
 });
