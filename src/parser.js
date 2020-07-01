@@ -49,7 +49,7 @@ const arrayParser = (splitted, idx, responses) => {
 
 typeParser['*'] = arrayParser;
 
-const parse = (response) => {
+const parseResponse = (response) => {
   const splitted = response.split('\r\n');
   const responses = [];
   const ids = ['+', '-', ':', '$', '*'];
@@ -69,4 +69,16 @@ const parse = (response) => {
   return responses;
 };
 
-module.exports = { parse };
+const parseValue = function (values) {
+  let joinedValues = JSON.stringify(values);
+
+  if (typeof values === 'object') {
+    joinedValues = values.reduce(
+      (joinedValues, value) => `${joinedValues} "${value}"`
+    );
+  }
+
+  return joinedValues;
+};
+
+module.exports = { parseResponse, parseValue };

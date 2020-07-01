@@ -1,4 +1,4 @@
-const { parse } = require('./parseResponse');
+const { parseResponse, parseValue } = require('./parser');
 
 class RedisClient {
   #socket;
@@ -19,7 +19,7 @@ class RedisClient {
       data += chunk;
     }
 
-    const responses = parse(data);
+    const responses = parseResponse(data);
     this.#callCallbacks(responses);
   };
 
@@ -58,6 +58,12 @@ class RedisClient {
 
   get(key, callback) {
     const command = `GET ${key}\r\n`;
+    this.#sendRequest(command, callback);
+  }
+
+  lpush(key, values, callback) {
+    const value = parseValue(values);
+    const command = `LPUSH ${key} ${value}\r\n`;
     this.#sendRequest(command, callback);
   }
 
