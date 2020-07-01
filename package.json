@@ -2,7 +2,7 @@
   "name": "redis-client",
   "version": "1.0.0",
   "description": "",
-  "main": "main.js",
+  "main": "vas-redis.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -11,7 +11,7 @@
     "url": "git+https://github.com/shankarbyageli/redis-client.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "vas (Vikram, Aaquib & Shankar)",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/shankarbyageli/redis-client/issues"
