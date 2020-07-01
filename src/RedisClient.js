@@ -1,6 +1,4 @@
 const { parseResponse, parseValue } = require('./parser');
-const { send } = require('process');
-const { parse } = require('path');
 
 class RedisClient {
   #socket;
