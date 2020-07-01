@@ -88,6 +88,16 @@ class RedisClient {
     this.#sendRequest(command, callback);
   }
 
+  hset(key, field, value, callback) {
+    const command = `HSET ${key} ${field} "${value}"\r\n`;
+    this.#sendRequest(command, callback);
+  }
+
+  hget(key, field, callback) {
+    const command = `HGET ${key} ${field}\r\n`;
+    this.#sendRequest(command, callback);
+  }
+
   hgetall(key, callback) {
     const command = `HGETALL ${key}\r\n`;
     this.#sendRequest(command, callback);

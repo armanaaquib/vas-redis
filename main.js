@@ -25,6 +25,11 @@ client.lrange('wrongList', 0, 100, (err, res) => {
 client.lpop('list', (err, res) => console.log(res));
 client.rpop('list', (err, res) => console.log(res));
 
+client.hset('myHash', 'field1', 'hello');
+client.hget('myHash', 'field1', (err, res) => {
+  console.log(res);
+});
+
 client.close(() => {
   console.log('connection closed.');
 });
