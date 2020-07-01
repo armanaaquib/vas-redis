@@ -67,6 +67,12 @@ class RedisClient {
     this.#sendRequest(command, callback);
   }
 
+  rpush(key, values, callback) {
+    const value = parseValue(values);
+    const command = `RPUSH ${key} ${value}\r\n`;
+    this.#sendRequest(command, callback);
+  }
+
   hgetall(key, callback) {
     const command = `HGETALL ${key}\r\n`;
     this.#sendRequest(command, callback);
