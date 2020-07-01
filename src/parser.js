@@ -86,6 +86,15 @@ const parseValue = function (values) {
   return joinedValues;
 };
 
+const parseValueFromObj = function (obj) {
+  joinedValues = Object.keys(obj).reduce(
+    (joinedValues, key) => `${joinedValues} ${key} "${obj[key]}"`,
+    ''
+  );
+
+  return joinedValues;
+};
+
 const reshapeResponse = (res, type) => {
   if (type === 'set') {
     return new Set(res);
@@ -104,4 +113,9 @@ const reshapeResponse = (res, type) => {
   return res;
 };
 
-module.exports = { parseResponse, parseValue, reshapeResponse };
+module.exports = {
+  parseResponse,
+  parseValue,
+  parseValueFromObj,
+  reshapeResponse,
+};

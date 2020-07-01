@@ -6,7 +6,11 @@ client.ping((err, res) => console.log(res));
 client.set('message', 'Hello step7');
 client.get('message', (err, res) => console.log(res));
 
-client.mget(['message', 'm2'], (err, res) => {
+client.mset({ m1: 'Hello', m2: 'step', m3: '7' }, (err, res) => {
+  console.log(res);
+});
+
+client.mget(['m1', 'm2', 'm3'], (err, res) => {
   console.log(res);
 });
 
@@ -42,7 +46,7 @@ client.hget('myHash', 'field1', (err, res) => {
   console.log(res);
 });
 
-client.hmset('myHash', ['field2', 'world', 'field3', '!']);
+client.hmset('myHash', { field2: 'world', field3: '!' });
 client.hmget('myHash', ['field1', 'field2', 'field3', 'noField'], (err, res) =>
   console.log(res)
 );

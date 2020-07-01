@@ -1,4 +1,9 @@
-const { parseResponse, parseValue, reshapeResponse } = require('./parser');
+const {
+  parseResponse,
+  parseValue,
+  reshapeResponse,
+  parseValueFromObj,
+} = require('./parser');
 
 class RedisClient {
   #socket;
@@ -65,6 +70,12 @@ class RedisClient {
     this.#sendRequest(command, { callback, type: 'string' });
   }
 
+  mset(keyValues, callback) {
+    const keyValue = parseValueFromObj(keyValues);
+    const command = `MSET ${keyValue}\r\n`;
+    this.#sendRequest(command, { callback, type: 'string' });
+  }
+
   mget(keys, callback) {
     const key = parseValue(keys);
     const command = `MGET ${key}\r\n`;
@@ -114,7 +125,7 @@ class RedisClient {
   }
 
   hmset(key, fieldValues, callback) {
-    const fieldValue = parseValue(fieldValues);
+    const fieldValue = parseValueFromObj(fieldValues);
     const command = `HMSET ${key} ${fieldValue}\r\n`;
     this.#sendRequest(command, { callback, type: 'string' });
   }
