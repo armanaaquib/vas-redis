@@ -22,6 +22,9 @@ client.lrange('wrongList', 0, 100, (err, res) => {
   console.log(res);
 });
 
+client.lpop('list', (err, res) => console.log(res));
+client.rpop('list', (err, res) => console.log(res));
+
 client.close(() => {
   console.log('connection closed.');
 });

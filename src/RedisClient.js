@@ -78,6 +78,16 @@ class RedisClient {
     this.#sendRequest(command, callback);
   }
 
+  lpop(key, callback) {
+    const command = `LPOP ${key}\r\n`;
+    this.#sendRequest(command, callback);
+  }
+
+  rpop(key, callback) {
+    const command = `RPOP ${key}\r\n`;
+    this.#sendRequest(command, callback);
+  }
+
   hgetall(key, callback) {
     const command = `HGETALL ${key}\r\n`;
     this.#sendRequest(command, callback);
