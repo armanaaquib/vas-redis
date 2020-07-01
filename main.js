@@ -49,6 +49,10 @@ client.rpoplpush('list', 'list1', (err, res) => {
   console.log(res);
 });
 
+client.brpoplpush('list', 'list1', 1, (err, res) => {
+  console.log(res);
+});
+
 client.sadd('set', ['uniq', 'ka'], (err, res) => {
   console.log(res);
 });

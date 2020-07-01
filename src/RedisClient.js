@@ -140,8 +140,13 @@ class RedisClient {
     this.#sendRequest(command, callback);
   }
 
-  rpoplpush(key1, key2, callback) {
-    const command = `RPOPLPUSH ${key1} ${key2} \r\n`;
+  rpoplpush(source, destination, callback) {
+    const command = `RPOPLPUSH ${source} ${destination} \r\n`;
+    this.#sendRequest(command, callback);
+  }
+
+  brpoplpush(source, destination, timeout, callback) {
+    const command = `BRPOPLPUSH ${source} ${destination} ${timeout}\r\n`;
     this.#sendRequest(command, callback);
   }
 
