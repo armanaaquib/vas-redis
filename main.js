@@ -1,23 +1,14 @@
 const redis = require('./vas-redis');
 
-const client = redis.createClient();
+const client = redis.createClient({ db: 1 });
 
-client.set('a', 10, (err, out) => {
-  console.log(err, out);
-});
+client.ping((err, res) => console.log(res));
 
-client.get('a', (err, out) => {
-  console.log(err, out);
-});
+client.set('message', 'Hello step7');
+client.get('message', (err, res) => console.log(res));
 
-client.get('z', (err, out) => {
-  console.log(err, out);
-});
-
-client.hgetall('intern', (err, out) => {
-  console.log(err, out);
-});
+client.select(2, (err, res) => console.log(res));
 
 client.close(() => {
-  console.log('disconnect from the server...');
+  console.log('connection closed.');
 });

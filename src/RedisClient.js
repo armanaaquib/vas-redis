@@ -39,6 +39,12 @@ class RedisClient {
     this.socket.write(command);
   }
 
+  ping(callback) {
+    const command = `PING\r\n`;
+    this.callbacks.push(callback);
+    this.socket.write(command);
+  }
+
   set(key, value, callback) {
     const command = `SET ${key} "${value}"\r\n`;
     this.callbacks.push(callback);
