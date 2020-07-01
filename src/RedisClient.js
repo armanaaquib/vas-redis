@@ -1,10 +1,11 @@
 const { parse } = require('./parseResponse');
 
 class RedisClient {
-  constructor(socket) {
+  constructor(socket, options) {
     this.socket = socket;
     this.socket.on('readable', this.gotResponse.bind(this));
     this.callbacks = [];
+    options && this.select(options.db);
   }
 
   gotResponse() {
@@ -20,7 +21,6 @@ class RedisClient {
   }
 
   callCallbacks(responses) {
-    console.log(responses);
     responses.forEach((response) => {
       const { err, res } = response;
       const callback = this.callbacks.shift();
