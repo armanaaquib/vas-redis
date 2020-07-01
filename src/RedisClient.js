@@ -88,6 +88,11 @@ class RedisClient {
     this.#sendRequest(command, callback);
   }
 
+  ltrim(key, start, end, callback) {
+    const command = `LTRIM ${key} ${start} ${end}\r\n`;
+    this.#sendRequest(command, callback);
+  }
+
   hset(key, field, value, callback) {
     const command = `HSET ${key} ${field} "${value}"\r\n`;
     this.#sendRequest(command, callback);
