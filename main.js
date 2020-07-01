@@ -68,7 +68,7 @@ client.brpoplpush('list', 'list1', 1, (err, res) => {
   console.log(res);
 });
 
-client.sadd('set', ['uniq', 'ka'], (err, res) => {
+client.sadd('set', ['uniq', 'uniq'], (err, res) => {
   console.log(res);
 });
 
@@ -77,15 +77,23 @@ client.smembers('set', (err, res) => {
 });
 
 client.incr('id', (err, res) => {
-  console.log(err, res);
+  console.log(res);
 });
 
 client.incrBy('id', 5, (err, res) => {
-  console.log(err, res);
+  console.log(res);
 });
 
-client.setnx('testing', 'done', (err, res) => {
-  console.log(err, res);
+client.setnx('key', 'done', (err, res) => {
+  console.log(res);
+});
+
+client.setnx('key', 'again done', (err, res) => {
+  console.log(res);
+});
+
+client.get('key', (err, res) => {
+  console.log(res);
 });
 
 client.close(() => {

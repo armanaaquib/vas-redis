@@ -142,8 +142,8 @@ class RedisClient {
     this.#sendRequest(command, callback);
   }
 
-  rpoplpush(source, destination, callback) {
-    const command = `RPOPLPUSH ${source} ${destination} \r\n`;
+  rpoplpush(sk, dk, callback) {
+    const command = `RPOPLPUSH ${sk} ${dk}\r\n`;
     this.#sendRequest(command, callback);
   }
 
@@ -154,27 +154,27 @@ class RedisClient {
 
   sadd(key, values, callback) {
     const value = parseValue(values);
-    const command = `SADD ${key} ${value} \r\n`;
+    const command = `SADD ${key} ${value}\r\n`;
     this.#sendRequest(command, callback);
   }
 
   smembers(key, callback) {
-    const command = `SMEMBERS ${key} \r\n`;
+    const command = `SMEMBERS ${key}\r\n`;
     this.#sendRequest(command, callback);
   }
 
   incr(key, callback) {
-    const command = `INCR ${key} \r\n`;
+    const command = `INCR ${key}\r\n`;
     this.#sendRequest(command, callback);
   }
 
   incrBy(key, increment, callback) {
-    const command = `INCRBY ${key} ${increment} \r\n`;
+    const command = `INCRBY ${key} ${increment}\r\n`;
     this.#sendRequest(command, callback);
   }
 
   setnx(key, value, callback) {
-    const command = `SETNX ${key} ${value} \r\n`;
+    const command = `SETNX ${key} ${value}\r\n`;
     this.#sendRequest(command, callback);
   }
 
