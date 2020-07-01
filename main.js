@@ -39,11 +39,21 @@ client.hget('myHash', 'field1', (err, res) => {
 });
 
 client.hmset('myHash', ['field2', 'world', 'field3', '!']);
-client.hmget('myHash', ['field1', 'field2', 'field3', 'noField'], (err, res) =>
-  console.log(res)
-);
+client.hmget('myHash', ['field1', 'field2', 'field3', 'noField'], (err, res) => console.log(res));
 
 client.hgetall('myHash', (err, res) => {
+  console.log(res);
+});
+
+client.rpoplpush('list', 'list1', (err, res) => {
+  console.log(res);
+});
+
+client.sadd('set', ['uniq', 'ka'], (err, res) => {
+  console.log(res);
+});
+
+client.smembers('set', (err, res) => {
   console.log(res);
 });
 

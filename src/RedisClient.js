@@ -1,4 +1,5 @@
 const { parseResponse, parseValue } = require('./parser');
+const { send } = require('process');
 
 class RedisClient {
   #socket;
@@ -117,6 +118,27 @@ class RedisClient {
 
   hgetall(key, callback) {
     const command = `HGETALL ${key}\r\n`;
+    this.#sendRequest(command, callback);
+  }
+
+  keys(pattern, callback) {
+    const command = `KEYS ${pattern} \r\n`;
+    this.#sendRequest(command, callback);
+  }
+
+  rpoplpush(key1, key2, callback) {
+    const command = `RPOPLPUSH ${key1} ${key2} \r\n`;
+    this.#sendRequest(command, callback);
+  }
+
+  sadd(key, values, callback) {
+    const value = parseValue(values);
+    const command = `SADD ${key} ${value} \r\n`;
+    this.#sendRequest(command, callback);
+  }
+
+  smembers(key, callback) {
+    const command = `SMEMBERS ${key} \r\n`;
     this.#sendRequest(command, callback);
   }
 
