@@ -80,7 +80,7 @@ client.incr('id', (err, res) => {
   console.log(res);
 });
 
-client.incrBy('id', 5, (err, res) => {
+client.incrby('id', 5, (err, res) => {
   console.log(res);
 });
 

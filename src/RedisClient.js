@@ -168,7 +168,7 @@ class RedisClient {
     this.#sendRequest(command, callback);
   }
 
-  incrBy(key, increment, callback) {
+  incrby(key, increment, callback) {
     const command = `INCRBY ${key} ${increment}\r\n`;
     this.#sendRequest(command, callback);
   }
