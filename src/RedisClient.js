@@ -33,33 +33,34 @@ class RedisClient {
     });
   }
 
-  select(db, callback) {
-    const command = `SELECT "${db}"\r\n`;
+  sendRequest(command, callback) {
     this.callbacks.push(callback);
     this.socket.write(command);
+  }
+
+  select(db, callback) {
+    const command = `SELECT "${db}"\r\n`;
+    this.sendRequest(command, callback);
   }
 
   ping(callback) {
     const command = `PING\r\n`;
-    this.callbacks.push(callback);
-    this.socket.write(command);
+    this.sendRequest(command, callback);
   }
 
   set(key, value, callback) {
     const command = `SET ${key} "${value}"\r\n`;
-    this.callbacks.push(callback);
-    this.socket.write(command);
+    this.sendRequest(command, callback);
   }
 
   get(key, callback) {
     const command = `GET ${key}\r\n`;
-    this.callbacks.push(callback);
-    this.socket.write(command);
+    this.sendRequest(command, callback);
   }
 
   hgetall(key, callback) {
     const command = `HGETALL ${key}\r\n`;
-    this.socket.write(command);
+    this.sendRequest(command, callback);
   }
 
   close(callback) {
