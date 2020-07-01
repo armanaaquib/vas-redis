@@ -32,11 +32,11 @@ const typeParser = {
   $: bulkParser,
 };
 
-const arrayParser = (splitted, idx, responses) => {
-  const length = +splitted[idx].slice(1);
+const arrayParser = (splitted, index, responses) => {
+  const length = +splitted[index].slice(1);
   const resp = [];
 
-  idx += 1;
+  let idx = index + 1;
   while (resp.length !== length) {
     const id = splitted[idx][0];
     const move = typeParser[id](splitted, idx, resp);
@@ -44,7 +44,7 @@ const arrayParser = (splitted, idx, responses) => {
   }
 
   responses.push({ res: resp.map((res) => res.res) });
-  return idx;
+  return idx - index;
 };
 
 typeParser['*'] = arrayParser;

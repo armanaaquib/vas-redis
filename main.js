@@ -14,6 +14,14 @@ client.lpush('list', [2, 3, 4], (err, res) => console.log(res));
 client.rpush('list', 'a');
 client.rpush('list', ['b', 'c', 'd'], (err, res) => console.log(res));
 
+client.lrange('list', 0, 100, (err, res) => {
+  console.log(res);
+});
+
+client.lrange('wrongList', 0, 100, (err, res) => {
+  console.log(res);
+});
+
 client.close(() => {
   console.log('connection closed.');
 });

@@ -73,6 +73,11 @@ class RedisClient {
     this.#sendRequest(command, callback);
   }
 
+  lrange(key, start, end, callback) {
+    const command = `LRANGE ${key} ${start} ${end}\r\n`;
+    this.#sendRequest(command, callback);
+  }
+
   hgetall(key, callback) {
     const command = `HGETALL ${key}\r\n`;
     this.#sendRequest(command, callback);
