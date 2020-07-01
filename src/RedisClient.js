@@ -32,7 +32,7 @@ class RedisClient {
         throw err;
       }
 
-      callback && callback(err ? err : null, res ? res : null);
+      callback && callback(err, res);
     });
   };
 
