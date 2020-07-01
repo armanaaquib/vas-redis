@@ -3,6 +3,11 @@ const stringParser = (splitted, idx, responses) => {
   return 1;
 };
 
+const errorParser = (splitted, idx, responses) => {
+  responses.push({ err: splitted[idx].slice(1) });
+  return 1;
+};
+
 const integerParer = (splitted, idx, responses) => {
   responses.push({ res: +splitted[idx].slice(1) });
   return 1;
@@ -22,7 +27,7 @@ const bulkParser = (splitted, idx, responses) => {
 
 const typeParser = {
   '+': stringParser,
-  '-': stringParser,
+  '-': errorParser,
   ':': integerParer,
   $: bulkParser,
 };

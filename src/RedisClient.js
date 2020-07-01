@@ -16,16 +16,31 @@ class RedisClient {
     }
 
     const responses = parse(data);
+    this.callCallbacks(responses);
+  }
 
+  callCallbacks(responses) {
+    console.log(responses);
     responses.forEach((response) => {
       const { err, res } = response;
       const callback = this.callbacks.shift();
-      callback(err ? err : null, res ? res : null);
+
+      if (!callback && err) {
+        throw err;
+      }
+
+      callback && callback(err ? err : null, res ? res : null);
     });
   }
 
+  select(db, callback) {
+    const command = `SELECT "${db}"\r\n`;
+    this.callbacks.push(callback);
+    this.socket.write(command);
+  }
+
   set(key, value, callback) {
-    const command = `SET ${key} ${value}\r\n`;
+    const command = `SET ${key} "${value}"\r\n`;
     this.callbacks.push(callback);
     this.socket.write(command);
   }
@@ -38,7 +53,6 @@ class RedisClient {
 
   hgetall(key, callback) {
     const command = `HGETALL ${key}\r\n`;
-    this.callbacks.push(callback);
     this.socket.write(command);
   }
 
