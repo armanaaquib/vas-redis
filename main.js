@@ -57,6 +57,18 @@ client.smembers('set', (err, res) => {
   console.log(res);
 });
 
+client.incr('id', (err, res) => {
+  console.log(err, res);
+});
+
+client.incrBy('id', 5, (err, res) => {
+  console.log(err, res);
+});
+
+client.setnx('testing', 'done', (err, res) => {
+  console.log(err, res);
+});
+
 client.close(() => {
   console.log('connection closed.');
 });

@@ -142,6 +142,21 @@ class RedisClient {
     this.#sendRequest(command, callback);
   }
 
+  incr(key, callback) {
+    const command = `INCR ${key} \r\n`;
+    this.#sendRequest(command, callback);
+  }
+
+  incrBy(key, increment, callback) {
+    const command = `INCRBY ${key} ${increment} \r\n`;
+    this.#sendRequest(command, callback);
+  }
+
+  setnx(key, value, callback) {
+    const command = `SETNX ${key} ${value} \r\n`;
+    this.#sendRequest(command, callback);
+  }
+
   close(callback) {
     const closeInterval = setInterval(() => {
       if (!this.#callbacks.length) {
