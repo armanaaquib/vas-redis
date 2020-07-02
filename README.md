@@ -26,6 +26,15 @@ close
 
 ## Examples:-
 
+
+
+### For closing and selecting database...
+```
+client.close(() => console.log('Connection closed.'));
+client.select(10);
+```
+
+
 ### Key-values commands
 ```
 key value
@@ -146,10 +155,4 @@ client.incrby('id', 5, (err, res) => {
   console.log(res); ?? expected output:- 6
 });
 
-```
-
-### For closing and selecting database...
-```
-client.close(() => console.log('Connection closed.'));
-client.select(10);
 ```
